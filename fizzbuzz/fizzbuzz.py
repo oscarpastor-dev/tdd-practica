@@ -1,4 +1,6 @@
 from fizzbuzz import fizzbuzz
 
 def fizzbuzz(n):
-    return str(n)
+        if n % 3 == 0:
+          return "Fizz"
+        return str(n)
