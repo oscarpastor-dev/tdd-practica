@@ -9,22 +9,28 @@ class TestValidarPassword(unittest.TestCase):
 
     def test_password_longitud_ok(self):
         res = validar_password("Abcdefg1!")
-        # Solo verificamos que NO tenga error de longitud
         self.assertNotIn("Mínimo 8 caracteres", res["errores"])
+
+    def test_sin_mayuscula(self):
+        res = validar_password("abcdefg1!")
+        self.assertFalse(res["valida"])
+        self.assertIn("Al menos una mayúscula", res["errores"])
+
     def test_sin_minuscula(self):
         res = validar_password("ABCDEFG1!")
         self.assertFalse(res["valida"])
         self.assertIn("Al menos una minúscula", res["errores"])
+
     def test_sin_digito(self):
         res = validar_password("Abcdefgh!")
         self.assertFalse(res["valida"])
         self.assertIn("Al menos un dígito", res["errores"])
+
     def test_sin_caracter_especial(self):
         res = validar_password("Abcdefg1")
         self.assertFalse(res["valida"])
         self.assertIn("Al menos un carácter especial", res["errores"])
 
-        
     def test_password_valida_completa(self):
         res = validar_password("Segura1!abc")
         self.assertTrue(res["valida"])
@@ -46,3 +52,6 @@ class TestValidarPassword(unittest.TestCase):
             with self.subTest(pwd=pwd):
                 res = validar_password(pwd)
                 self.assertEqual(res["valida"], esperado)
+
+if __name__ == '__main__':
+    unittest.main()
