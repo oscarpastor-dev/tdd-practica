@@ -7,5 +7,7 @@ def validar_password(pwd):
         errores.append("Al menos una minúscula")
     if not any(c.isdigit() for c in pwd):
         errores.append("Al menos un dígito")
-    
+    caracteres_especiales = "!@#$%^&*"
+    if not any(c in caracteres_especiales for c in pwd):
+        errores.append("Al menos un carácter especial")
     return {"valida": len(errores) == 0, "errores": errores}
